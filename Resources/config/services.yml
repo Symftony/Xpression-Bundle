@@ -1,0 +1,34 @@
+services:
+    xpression.annotations_driver:
+        class: Symftony\XpressionBundle\Annotations\Driver\AnnotationsDriver
+        arguments:
+            - '@annotation_reader'
+            - '@xpression.expression_registry'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    xpression.expression_registry:
+        class: Symftony\XpressionBundle\ExpressionBuilderRegistry
+
+    xpression.common.expression_builder_adapter_factory:
+        class: Symftony\XpressionBundle\Bridge\Doctrine\Common\ExpressionBuilderAdapterFactory
+
+    xpression.common.expression_builder_adapter:
+        class: Symftony\Xpression\Bridge\Doctrine\Common\ExpressionBuilderAdapter
+        factory: ['@xpression.common.expression_builder_adapter_factory', 'createExpressionBuilderAdapter']
+        tags:
+            - { name: 'expression_builder', alias: 'common' }
+
+    xpression.orm.expr_adapter_factory:
+        class: Symftony\XpressionBundle\Bridge\Doctrine\ORM\ExprAdapterFactory
+
+    xpression.orm.expr_adapter:
+        class: Symftony\Xpression\Bridge\Doctrine\ORM\ExprAdapter
+        factory: ['@xpression.orm.expr_adapter_factory', 'createExprAdapter']
+        tags:
+            - { name: 'expression_builder', alias: 'orm' }
+
+    xpression.odm.expr_adapter:
+        class: Symftony\Xpression\Bridge\Doctrine\MongoDb\ExprBuilder
+        tags:
+            - { name: 'expression_builder', alias: 'odm' }
