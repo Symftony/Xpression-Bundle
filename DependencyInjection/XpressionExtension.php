@@ -16,5 +16,17 @@ class XpressionExtension extends Extension
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
+
+        if (class_exists('Doctrine\Common\Collections\ExpressionBuilder')) {
+            $loader->load('services/common.yml');
+        }
+
+        if (class_exists('Doctrine\MongoDB\Query\Expr')) {
+            $loader->load('services/odm.yml');
+        }
+
+        if (class_exists('Doctrine\ORM\Query\Expr')) {
+            $loader->load('services/orm.yml');
+        }
     }
 }

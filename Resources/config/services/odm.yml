@@ -1,0 +1,5 @@
+services:
+    xpression.odm.expr_adapter:
+        class: Symftony\Xpression\Bridge\Doctrine\MongoDb\ExprBuilder
+        tags:
+            - { name: 'expression_builder', alias: 'odm' }

@@ -1,0 +1,9 @@
+services.ymlservices:
+    xpression.orm.expr_adapter_factory:
+        class: Symftony\XpressionBundle\Bridge\Doctrine\ORM\ExprAdapterFactory
+
+    xpression.orm.expr_adapter:
+        class: Symftony\Xpression\Bridge\Doctrine\ORM\ExprAdapter
+        factory: ['@xpression.orm.expr_adapter_factory', 'createExprAdapter']
+        tags:
+            - { name: 'expression_builder', alias: 'orm' }

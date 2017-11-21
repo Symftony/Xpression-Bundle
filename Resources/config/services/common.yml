@@ -1,0 +1,9 @@
+services:
+    xpression.common.expression_builder_adapter_factory:
+        class: Symftony\XpressionBundle\Bridge\Doctrine\Common\ExpressionBuilderAdapterFactory
+
+    xpression.common.expression_builder_adapter:
+        class: Symftony\Xpression\Bridge\Doctrine\Common\ExpressionBuilderAdapter
+        factory: ['@xpression.common.expression_builder_adapter_factory', 'createExpressionBuilderAdapter']
+        tags:
+            - { name: 'expression_builder', alias: 'common' }
