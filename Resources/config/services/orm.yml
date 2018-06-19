@@ -1,4 +1,4 @@
-services.ymlservices:
+services:
     xpression.orm.expr_adapter_factory:
         class: Symftony\XpressionBundle\Bridge\Doctrine\ORM\ExprAdapterFactory
 
