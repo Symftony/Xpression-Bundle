@@ -4,7 +4,6 @@ namespace Symftony\XpressionBundle\Annotations\Driver;
 
 use Symftony\Xpression\Parser;
 use Symftony\Xpression\Exception\Parser\InvalidExpressionException;
-use Symftony\Xpression\QueryStringParser;
 use Symftony\XpressionBundle\Annotations\Xpression;
 use Symftony\XpressionBundle\ExpressionBuilderRegistry;
 use Doctrine\Common\Annotations\Reader;
@@ -71,8 +70,8 @@ class AnnotationsDriver implements EventSubscriberInterface
             $source = $configuration->getSource();
             $targetName = $configuration->getTargetName();
             $request = $event->getRequest();
-            $input = QueryStringParser::unwrap($request->{$source}->get($configuration->getSourceName()));
-            if ('' === $input) {
+            $input = $request->{$source}->get($configuration->getSourceName());
+            if (null === $input || '' === $input) {
                 if (!array_key_exists($targetName, $optionalArguments)) {
                     throw new HttpException(400, sprintf('Expression "%s" is require.', $source));
                 }
